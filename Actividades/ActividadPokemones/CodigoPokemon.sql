@@ -71,12 +71,21 @@ Create table Gimnasios
     IDCiudad int,
     foreign key (IDCiudad) references Ciudades(IDCiudad)
 );
+Create table Objetos
+(
+	IDObjeto int primary key not null,
+    Nombre varchar(25),
+    descripcion text
+);
 Create table Equipos
 (
-	IDEquipo int primary key not null auto_increment,
-    ObjetoEquipado Varchar(25), 
+	IDRegistro int primary key not null,
+    IDEntrenador int,
+    foreign key (IDEntrenador) references Entrenadores(IDEntrenador),
     IDPokemon int,
-    foreign key (IDPokemon) references Pokemones(IDPokemon)
+    foreign key (IDPokemon) references Pokemones(IDPokemon),
+    IDObjeto int, 
+    foreign key (IDObjeto) references Objetos(IDObjeto)
 );
 Create table Batallas
 (
@@ -86,11 +95,7 @@ Create table Batallas
     IDAtacante int,
     foreign key (IDAtacante) references Entrenadores(IDEntrenador),
     IDDefensor int,
-    foreign key (IDDefensor) references Entrenadores(IDEntrenador),
-    IDEquipoAtacante int,
-    foreign key (IDEquipoAtacante) references Equipos(IDEquipo),
-    IDEquipoDefensor int,
-    foreign key (IDEquipoDefensor) references Equipos(IDEquipo)
+    foreign key (IDDefensor) references Entrenadores(IDEntrenador)
 );
 Create table BatallasGimnasios
 (
@@ -100,3 +105,36 @@ Create table BatallasGimnasios
     IDGimnasio int,
     foreign key (IDGimnasio) references Gimnasios(IDGimnasio)
 );
+
+insert into Regiones(Nombre, Clima) values
+( "Kanto", "Templado"),
+("Johto", "Humedo");
+
+insert into Ciudades(Nombre, Poblacion, IDRegion) values
+("Isla Canela", 50, 1),
+("Ciudad Malva", 200, 2);
+
+insert into Entrenadores(Nombre, Edad, IDCIudad) values
+("Red", 10, 1),
+("Gold", 11, 2);
+
+insert into Especies(Nombre, NumPokeDex, TipoElemento, IDRegion) values
+("Charmander", 4, "Fuego", 1),
+("Charmeleon", 5, "Fuego", 2);
+
+insert into Pokemones(Nombre, Nivel, IDEntrenador, IDEspecie) values
+("Pepe", 4, 1, 1),
+("Pepe", 20, 2, 2);
+
+insert into Evoluciones(IDFaseNueva, IDFasePrevia) values
+(2, 1);
+
+insert into HistorialEvoluciones(Fecha, MetodoEvolucion, IDPokemon, IDEvolucion) values
+("2026-08-03", "Nivel", 2, 1);
+
+insert into Gimnasios(Nombre, TipoElemento, IDLider, IDCiudad) values
+("Gimnasio de Isla Canela", "Fuego", 1, 1),
+("Gimnasio de Ciudad Malva", "Volador", 2, 2);
+
+insert into Equipos(IDEquipo, ObjetoEquipado, IDPokemon) values
+(1, "Restos", 2), (1, "Restos", 1);
