@@ -138,3 +138,10 @@ insert into Gimnasios(Nombre, TipoElemento, IDLider, IDCiudad) values
 
 insert into Equipos(IDEquipo, ObjetoEquipado, IDPokemon) values
 (1, "Restos", 2), (1, "Restos", 1);
+
+
+
+
+select e.nombre, e.edad, c.nombre as ciudad
+from entrenadores e
+inner join ciudades c on e.IDCiudad = c.IDCiudad
